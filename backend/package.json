@@ -1,0 +1,14 @@
+{
+  "name": "backend-hottest-review",
+  "version": "1.0.0",
+  "description": "backend of the application Peckocko",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matthias Aznar-Schwarz",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
