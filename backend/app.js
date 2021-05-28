@@ -1,24 +1,12 @@
 const express = require('express');
-
 const app = express();
 
-app.use((req, res, next) => {
-  console.log('Requête reçue !');
-  next();
-});
+//Importation des routes
+const stuffRoutes = require('./routes/stuff');
+const userRoutes = require('./routes/user');
 
-app.use((req, res, next) => {
-  res.status(201);
-  next();
-});
-
-app.use((req, res, next) => {
-  res.json({ message: 'Votre requête a bien été reçue !' });
-  next();
-});
-
-app.use((req, res, next) => {
-  console.log('Réponse envoyée avec succès !');
-});
+//Déclarer comment on souhaite utiliser ces API
+app.use('/api/stuff', stuffRoutes);
+app.use('/api/auth', userRoutes);
 
 module.exports = app;
