@@ -1,3 +1,6 @@
+//Import du modèle de données User
+const User = require('../models/user');
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 

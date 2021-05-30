@@ -1,4 +1,7 @@
+//Import du modèle de données Thing
 const Thing = require('../models/thing');
+
+//Import de la librarie node qui permet de gerer les documents 
 const fs = require('fs');
 
 
