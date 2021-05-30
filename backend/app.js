@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 
 app.use('/images', express.static(path.join(__dirname, 'images'))); //pour 'multer'
 
-app.use('/api/stuff', stuffRoutes);
+app.use('/api/stuff', stuffRoutes); //à rerouter vers /api/sauce. Mais ça n'a pas fonctionné...
 app.use('/api/auth', userRoutes);
 
 module.exports = app;
