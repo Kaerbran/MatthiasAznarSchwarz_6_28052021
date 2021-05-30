@@ -8,7 +8,7 @@ exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
         const user = new User({
-          email: req.body.email,
+          email: req.body.email.toString().toLowerCase(), // >> A TESTER << Doit mettre en minuscule l'adresse mail
           password: hash
         });
         user.save()
@@ -19,7 +19,7 @@ exports.signup = (req, res, next) => {
   };
 
   exports.login = (req, res, next) => {
-    User.findOne({ email: req.body.email })
+    User.findOne({ email: req.body.email.toString().toLowerCase() }) // >> A TESTER << Doit mettre en minuscule l'adresse mail
       .then(user => {
         if (!user) {
           return res.status(401).json({ error: 'Utilisateur non trouvé !' });
