@@ -77,7 +77,8 @@ exports.deleteThing = (req, res, next) => {
       .catch(error => res.status(500).json({ error }));
 };
 /*exports.deleteThing = (req, res, next) => {
-  Thing.deleteOne({_id: req.params.id}).then(
+  Thing.deleteOne({_id: req.params.id})
+  .then(
     () => {
       res.status(200).json({
         message: 'Deleted!'

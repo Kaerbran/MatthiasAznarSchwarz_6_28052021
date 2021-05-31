@@ -28,9 +28,8 @@ exports.createSauce = (req, res, next) => {
 };
 
 exports.getOneSauce = (req, res, next) => {
-    Sauce.findOne({
-    _id: req.params.id
-    }).then(
+    Sauce.findOne({_id: req.params.id})
+    .then(
         (sauce) => {
         res.status(200).json(sauce);
         }
@@ -89,9 +88,37 @@ exports.getAllSauce = (req, res, next) => {
             error: error
           });
         }
-      );
+    );
 };
 
+// corps de la demande : { userId: Chaîne,
+//                       j'aime : Nombre }
+///api/sauces/:id/like
 exports.putLikeSauce = (req, res, next) => {
+    Sauce.findOne({
+        _id: req.params.id 
+    })
+    .then(
+        function (sauce) {
+            const likeObject = JSON.parse(req.body);
+            return sauce;
+        }
+
+    )
+    .catch(
+
+    );
+
+    //si =1 => utilisateur aime la sauce
+    // +ajouter nom au tableau
+        //ne peut pas faire plusieurs fois la même action
+
+    //si =0 => utilisateur annule son like ou dislike 
+    // +retirer le nom des tableaux
+
+    //si =-1 => utilisateur dislike
+    // +ajouter nom au tableau
+        //ne peut pas faire plusieurs fois la même action
+
 
 };
