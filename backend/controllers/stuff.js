@@ -44,24 +44,24 @@ exports.getOneThing = (req, res, next) => {
 };
 
 exports.modifyThing = (req, res, next) => {
-    const thingObject = req.file ?
-    {
-        ...JSON.parse(req.body.thing),
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { ...req.body };
-    Thing.updateOne({_id: req.params.id}, thing).then(
-    () => {
-        res.status(201).json({
-        message: 'Thing updated successfully!'
-        });
-    }
-    ).catch(
-    (error) => {
-        res.status(400).json({
-        error: error
-        });
-    }
-    );
+  const thingObject = req.file ?
+  {
+    ...JSON.parse(req.body.thing),
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+  } : { ...req.body };
+  Thing.updateOne({_id: req.params.id}, thing).then(
+  () => {
+      res.status(201).json({
+      message: 'Thing updated successfully!'
+      });
+  }
+  ).catch(
+  (error) => {
+      res.status(400).json({
+      error: error
+      });
+  }
+  );
 };
 
 exports.deleteThing = (req, res, next) => {
