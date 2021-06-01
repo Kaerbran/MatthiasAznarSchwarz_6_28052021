@@ -114,21 +114,22 @@ exports.putLikeSauce = (req, res, next) => {
     Sauce.findOne({
         _id: req.params.id 
     })
-    .then(
-        function (sauce) {
-            const likedObject = JSON.parse(req.body);
+    .then(function (sauce) {
+        const likedObject = JSON.parse(req.body);
+        console.log(likedObject);
+        const likeAction = likedObject.jaime;
+        const likePerson = likedObject.userID;
+        if (condition) {
+            
+        }
+        if (condition) {
+            
+        } else {
+            
+        }
 
-            if (condition) {
-                
-            }
-            if (condition) {
-                
-            } else {
-                
-            }
-
-            return sauce;
-            //res.status(200).json(sauce);
+        return sauce;
+        //res.status(200).json(sauce);
 
         }
     )
