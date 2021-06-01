@@ -30,16 +30,15 @@ exports.createSauce = (req, res, next) => {
 exports.getOneSauce = (req, res, next) => {
     Sauce.findOne({_id: req.params.id})
     .then(
-        (sauce) => {
+    (sauce) => {
         res.status(200).json(sauce);
-        }
-    ).catch(
-        (error) => {
+    })
+    .catch(
+    (error) => {
         res.status(404).json({
             error: error
         });
-        }
-    );
+    });
 };
 
 exports.modifySauce = (req, res, next) => {
@@ -100,13 +99,28 @@ exports.putLikeSauce = (req, res, next) => {
     })
     .then(
         function (sauce) {
-            const likeObject = JSON.parse(req.body);
-            return sauce;
-        }
+            const likedObject = JSON.parse(req.body);
 
+            if (condition) {
+                
+            }
+            if (condition) {
+                
+            } else {
+                
+            }
+
+            return sauce;
+            //res.status(200).json(sauce);
+
+        }
     )
     .catch(
-
+        (error) => {
+            res.status(404).json({
+                error: error
+            });
+        }
     );
 
     //si =1 => utilisateur aime la sauce
