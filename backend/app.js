@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 //Importation des routes
 const stuffRoutes = require('./routes/stuff');
+const sauceRoutes = require('./routes/sauce')
 const userRoutes = require('./routes/user');
 const bodyParser = require('body-parser');
 
