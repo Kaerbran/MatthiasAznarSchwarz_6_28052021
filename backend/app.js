@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 //Importation des routes
-const stuffRoutes = require('./routes/stuff');
 const sauceRoutes = require('./routes/sauce')
 const userRoutes = require('./routes/user');
 const bodyParser = require('body-parser');
@@ -32,7 +31,7 @@ app.use(bodyParser.json());
 
 app.use('/images', express.static(path.join(__dirname, 'images'))); //pour 'multer'
 
-app.use('/api/stuff', stuffRoutes); //à rerouter vers /api/sauce. Mais ça n'a pas fonctionné...
+app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
 
 module.exports = app;
