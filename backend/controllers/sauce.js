@@ -117,15 +117,23 @@ exports.putLikeSauce = (req, res, next) => {
     .then(function (sauce) {
         const likedObject = JSON.parse(req.body);
         console.log(likedObject);
-        const likeAction = likedObject.jaime;
-        const likePerson = likedObject.userID;
-        if (condition) {
-            
+
+        if (likedObject.like == 1 && !sauce.usersLiked.includes(likedObject.userId)) {
+            //si dislike déjà présent sur cette sauce
+                //retirer dislike + nom de l'array dislike ET appliquer le like + mettre le nom sur l'array du like
+            //sinon
+                //appliquer le like + mettre le nom sur l'array du like
         }
-        if (condition) {
-            
+        if (likedObject.like == -1 && !sauce.usersDisliked.includes(likedObject.userId)) {
+            //si like déjà présent sur cette sauce
+                //retirer like + nom de l'array like ET appliquer le disklike + mettre le nom sur l'array du dislike
+            //sinon
+                //appliquer le like + mettre le nom sur l'array du like
+        }
+        if (likedObject.like == 0 && (!sauce.usersLiked.includes(likedObject.userId) || !sauce.usersDisliked.includes(likedObject.userId))) {
+            //regarder si array dans like ou dislike. En fonction retirer
         } else {
-            
+            //message erreur? 
         }
 
         return sauce;
@@ -153,4 +161,12 @@ exports.putLikeSauce = (req, res, next) => {
         //ne peut pas faire plusieurs fois la même action
 
 
+/*
+        Sauce.updateOne({_id: req.params.id}, sauce).then(
+            () => {
+                    res.status(201).json({
+                    message: 'Sauce updated successfully!'
+                    });
+                }
+            )*/
 };
