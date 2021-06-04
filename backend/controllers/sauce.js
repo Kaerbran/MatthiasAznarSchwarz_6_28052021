@@ -136,7 +136,7 @@ exports.putLikeSauce = (req, res, next) => {
             .then(() => {res.status(201).json({message: 'Sauce updated successfully!'});})
             .catch((error) => {res.status(400).json({error: error});});
         }
-        /*
+        
         if (likedObject.like == -1 && !sauce.usersDisliked.includes(likedObject.userId)) {
             //si like déjà présent sur cette sauce
                 //retirer like + nom de l'array like ET appliquer le disklike + mettre le nom sur l'array du dislike
@@ -147,10 +147,8 @@ exports.putLikeSauce = (req, res, next) => {
             //regarder si array dans like ou dislike. En fonction retirer
         } else {
             //message erreur? 
-        }*/
+        }
 
-        //return sauce;
-        //res.status(200).json(sauce);
     })
     .catch((error) => {
         res.status(404).json({

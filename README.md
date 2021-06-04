@@ -7,6 +7,12 @@ Pour faire fonctionner le projet, vous devez installer :
 
 Sur Windows, ces installations nécessitent d'utiliser PowerShell en tant qu'administrateur.
 
+Librairies npm:
+- password validator (https://www.npmjs.com/package/password-validator)
+- Express Rate Limit (https://www.npmjs.com/package/express-rate-limit)
+- dotenv (https://www.npmjs.com/package/dotenv)
+- Helmet (https://www.npmjs.com/package/helmet)
+
 ## Development server
 
 Démarrer ng serve pour avoir accès au serveur de développement. Rendez-vous sur http://localhost:4200/. L'application va se recharger automatiquement si vous modifiez un fichier source.
