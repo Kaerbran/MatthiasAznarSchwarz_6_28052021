@@ -47,19 +47,18 @@ exports.modifySauce = (req, res, next) => {
         ...JSON.parse(req.body.sauce),
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
-    Sauce.updateOne({_id: req.params.id}, sauce).then(
-    () => {
-            res.status(201).json({
-            message: 'Sauce updated successfully!'
-            });
-        }
-    ).catch(
-    (error) => {
-            res.status(400).json({
-            error: error
-            });
-        }
-    );
+
+    Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
+    .then(() => {
+        res.status(201).json({
+        message: 'Sauce updated successfully!'
+        });
+    })
+    .catch((error) => {
+        res.status(400).json({
+        error: error
+        });
+    });
 };
 
 exports.deleteSauce = (req, res, next) => {
@@ -111,19 +110,33 @@ exports.getAllSauce = (req, res, next) => {
 //                       j'aime : Nombre }
 ///api/sauces/:id/like
 exports.putLikeSauce = (req, res, next) => {
-    Sauce.findOne({
-        _id: req.params.id 
-    })
+    Sauce.findOne({_id: req.params.id})
     .then(function (sauce) {
-        const likedObject = JSON.parse(req.body);
-        console.log(likedObject);
+        const updatedSauce = sauce;
 
-        if (likedObject.like == 1 && !sauce.usersLiked.includes(likedObject.userId)) {
-            //si dislike déjà présent sur cette sauce
-                //retirer dislike + nom de l'array dislike ET appliquer le like + mettre le nom sur l'array du like
-            //sinon
-                //appliquer le like + mettre le nom sur l'array du like
+        if (req.body.like == 1 && !sauce.usersLiked.includes(req.body.userId)) {
+            if (sauce.usersDisliked.includes(req.body.userId)) {
+                const index = updatedSauce.usersDisliked.indexOf(req.body.userId);
+                if (index > -1) {
+                    updatedSauce.usersDisliked.splice(index, 1);
+                }
+                updatedSauce.dislikes -= 1;
+            }
+
+            updatedSauce.likes += 1;
+            updatedSauce.usersLiked.push(req.body.userId);
+
+            Sauce.updateOne({ _id: req.params.id }, 
+                { 
+                    likes: updatedSauce.likes, 
+                    dislikes: updatedSauce.dislikes, 
+                    usersLiked: updatedSauce.usersLiked,
+                    usersDisliked: updatedSauce.usersDisliked
+                })
+            .then(() => {res.status(201).json({message: 'Sauce updated successfully!'});})
+            .catch((error) => {res.status(400).json({error: error});});
         }
+        /*
         if (likedObject.like == -1 && !sauce.usersDisliked.includes(likedObject.userId)) {
             //si like déjà présent sur cette sauce
                 //retirer like + nom de l'array like ET appliquer le disklike + mettre le nom sur l'array du dislike
@@ -134,39 +147,14 @@ exports.putLikeSauce = (req, res, next) => {
             //regarder si array dans like ou dislike. En fonction retirer
         } else {
             //message erreur? 
-        }
+        }*/
 
-        return sauce;
+        //return sauce;
         //res.status(200).json(sauce);
-
-        }
-    )
-    .catch(
-        (error) => {
-            res.status(404).json({
-                error: error
-            });
-        }
-    );
-
-    //si =1 => utilisateur aime la sauce
-    // +ajouter nom au tableau
-        //ne peut pas faire plusieurs fois la même action
-
-    //si =0 => utilisateur annule son like ou dislike 
-    // +retirer le nom des tableaux
-
-    //si =-1 => utilisateur dislike
-    // +ajouter nom au tableau
-        //ne peut pas faire plusieurs fois la même action
-
-
-/*
-        Sauce.updateOne({_id: req.params.id}, sauce).then(
-            () => {
-                    res.status(201).json({
-                    message: 'Sauce updated successfully!'
-                    });
-                }
-            )*/
+    })
+    .catch((error) => {
+        res.status(404).json({
+            error: error
+        });
+    });
 };
