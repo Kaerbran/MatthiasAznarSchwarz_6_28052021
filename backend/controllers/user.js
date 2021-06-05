@@ -7,22 +7,19 @@ const jwt = require('jsonwebtoken');
 const validateSchema = require('../models/password');
 
 exports.signup = (req, res, next) => {
-
-  console.log("premier");
-  console.log(validateSchema.validate('mdp', { list: true }));
-
-  console.log("second");
-  console.log(validateSchema.validate(req.body.password, { list: true }));  
-
   bcrypt.hash(req.body.password, 10)
-      .then(hash => {
-        const user = new User({
-          email: req.body.email.toString().toLowerCase(), 
-          password: hash
-        });
-        user.save()
-          .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
-          .catch(error => res.status(400).json({ error }));
+      .then(hash => { 
+        if (validateSchema.validate(req.body.password)) {
+          const user = new User({
+            email: req.body.email.toString().toLowerCase(), 
+            password: hash
+          });
+          user.save()
+            .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
+            .catch(error => res.status(400).json({ error }));
+        } else {
+          res.status(400).json(validateSchema.validate(req.body.password, { list: true }))
+        }        
       })
       .catch(error => res.status(500).json({ error }));
   };
