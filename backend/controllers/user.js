@@ -4,8 +4,17 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+const validateSchema = require('../models/password');
+
 exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10)
+
+  console.log("premier");
+  console.log(validateSchema.validate('mdp', { list: true }));
+
+  console.log("second");
+  console.log(validateSchema.validate(req.body.password, { list: true }));  
+
+  bcrypt.hash(req.body.password, 10)
       .then(hash => {
         const user = new User({
           email: req.body.email.toString().toLowerCase(), 
