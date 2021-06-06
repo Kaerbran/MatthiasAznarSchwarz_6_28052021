@@ -5,14 +5,17 @@ const sauceRoutes = require('./routes/sauce')
 const userRoutes = require('./routes/user');
 const bodyParser = require('body-parser');
 
+// load dotenv to read .env and set env variables when app starts
+//{path: path/filemane} -> peut être rajouté dans config(), si le nom et le chemin n'est pas standard
+require('dotenv').config();
+
 //importation pour 'multer', afin d'acceder au path du server
 const path = require('path');
 
 const express = require('express');
 
-mongoose.connect('mongodb+srv://DBUserFull001:7I912lfH7so3Kn7u@gofullstack.54xuk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-  { useNewUrlParser: true,
-    useUnifiedTopology: true })
+mongoose.connect(`mongodb+srv://${process.env.DB_USER_E}:${process.env.DB_PASS_E}@${process.env.DB_HOST_E}.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
+{ useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 

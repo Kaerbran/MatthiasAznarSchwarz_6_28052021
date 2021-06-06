@@ -1,6 +1,11 @@
 const http = require('http');
 const app = require('./app');
 
+// load dotenv to read .env and set env variables when app starts
+//{path: path/filemane} -> peut être rajouté dans config(), si le nom et le chemin n'est pas standard
+require('dotenv').config();
+portBackend = process.env.PORT;
+
 const normalizePort = val => {
   const port = parseInt(val, 10);
 
@@ -12,7 +17,7 @@ const normalizePort = val => {
   }
   return false;
 };
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || portBackend);
 app.set('port', port);
 
 const errorHandler = error => {
