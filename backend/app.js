@@ -1,4 +1,8 @@
+//Import of Mongoose Library
 const mongoose = require('mongoose');
+
+//npm Library 'Express rate limiter'
+const rateLimiter = require('./middleware/rate-limiter')
 
 //Importation des routes
 const sauceRoutes = require('./routes/sauce')
@@ -33,6 +37,8 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 app.use('/images', express.static(path.join(__dirname, 'images'))); //pour 'multer'
+
+app.use("/api/", rateLimiter.apiLimiter); //Question : à mettre avant app.use(bodyParser) ???
 
 app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);

@@ -3,7 +3,10 @@ const router = express.Router();
 
 const userCtrl = require('../controllers/user');
 
-router.post('/signup', userCtrl.signup);
+//npm Library 'Express rate limiter'
+const rateLimiter = require('../middleware/rate-limiter')
+
+router.post('/signup', rateLimiter.createAccountLimiter , userCtrl.signup);
 router.post('/login', userCtrl.login);
 
 module.exports = router;
