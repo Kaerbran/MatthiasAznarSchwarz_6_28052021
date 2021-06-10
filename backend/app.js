@@ -2,10 +2,13 @@
 const mongoose = require('mongoose');
 
 //npm Library 'Express rate limiter'
-const rateLimiter = require('./middleware/rate-limiter')
+const rateLimiter = require('./middleware/rate-limiter');
+
+//npm Library 'helmet'
+const helmet = require('helmet');
 
 //Importation des routes
-const sauceRoutes = require('./routes/sauce')
+const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 const bodyParser = require('body-parser');
 
@@ -36,9 +39,11 @@ app.use((req, res, next) => {
 //Déclarer comment on souhaite utiliser ces API
 app.use(bodyParser.json());
 
+app.use(helmet());
+
 app.use('/images', express.static(path.join(__dirname, 'images'))); //pour 'multer'
 
-app.use("/api/", rateLimiter.apiLimiter); //Question : à mettre avant app.use(bodyParser) ???
+app.use("/api/", rateLimiter.apiLimiter);
 
 app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
